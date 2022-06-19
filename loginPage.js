@@ -8,19 +8,19 @@ function onLoad() {
     document.querySelector("#register").style.display = "none";
     // aca oculto el ingreso de usuarios
     document.querySelector("#ingresoUsuario").style.display = "none";
-    // creo boton con funcion para visualizar las reservas de usuario persona
+    // tomo boton con funcion para visualizar las reservas de usuario persona
     const buttonVisualize = document.querySelector("#visualizar");
     buttonVisualize.addEventListener("click", onClickVisualize);
-    // creo boton con funcion para que el usuario comience a reservar
+    // tomo boton con funcion para que el usuario comience a reservar
     const buttonReservas = document.querySelector("#comenzarReserva");
     buttonReservas.addEventListener("click", onClickReservas);
-    // creo boton con funcion para que los locales puedan ingresar 
+    // tomo boton con funcion para que los locales puedan ingresar 
     const buttonLL = document.querySelector("#loginLocal");
     buttonLL.addEventListener("click", onClickLogLocal);
-    // creo boton asociado a select, con funcion para seleccionar si eres usuario local o persona
+    // tomo boton asociado a select, con funcion para seleccionar si eres usuario local o persona
     const button = document.querySelector("#tipo");
     button.addEventListener("click", onClickSelect);
-    // creo boton con funcion para que los usuarios persona puedan ingresar
+    // tomo boton con funcion para que los usuarios persona puedan ingresar
     const buttonL = document.querySelector("#login");
     buttonL.addEventListener("click", onClickLog);
     //Boton correspondiente al link/URL para registrarse
@@ -29,7 +29,7 @@ function onLoad() {
     //Boton para registrar nuevo usuario
     const buttonRegistrar = document.querySelector("#confirmar");
     buttonRegistrar.addEventListener("click", registrarse)
-    // creo boton con funcion para buscar informacion de locales para reservar
+    // tomo boton con funcion para buscar informacion de locales para reservar
     document.querySelectorAll(".btnSearch").forEach(function (btn) {
         btn.addEventListener("click", onSearch)
     })
@@ -115,7 +115,7 @@ function onSearch() {
             })
             break;
     }
-    // creo boton con funcion para confirmar la reserva
+    // tomo boton con funcion para confirmar la reserva
     document.querySelectorAll(".reservation").forEach(function (btn) {
         btn.addEventListener("click", reserva);
     })
@@ -151,6 +151,16 @@ function onClickLogLocal(e) {
         changeVisibility("contenido", "none");
         document.querySelector("#greetings2").innerHTML = `Bienvenido`
         changeVisibility("grafica1", "block");
+        
+        document.querySelector("#comenzarReserva").parentNode.style.display = "none";
+        
+        // conseguir data del local logeado
+        arrLocal.forEach(function (localUsed) {
+            if (localUsed.nombre == usuario) {
+                console.log(localUsed)
+                local = localUsed;
+            }
+        })
 
     }
 }
@@ -221,6 +231,7 @@ function onClickReservas() {
 }
 
 // funcion para reservar
+//guardo en logerUser.reservas y en local.reservas la reserva 
 function reserva() {
     let cant = document.querySelector("#cant").value
     let res = new Reserva(logedUser.id, logedUser.userNombre, local.nombre, cant, "pendiente", null, local.Image)

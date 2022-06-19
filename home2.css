@@ -176,6 +176,8 @@ p.ver-mas {
   cursor: pointer;
   color: #fff;
   font-size: 14px;
+  appearance: none;
+  webkit-appearance: none;
 }
 
 #aux a {

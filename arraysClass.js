@@ -31,7 +31,7 @@ class Local {
         this.cupos = cupos;
         this.Image = Image;
         this.type = type;
-        this.reservas = [];
+        this.reservas = reservas;
         this.owner = owner;
         this.password = password;
     }
