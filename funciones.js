@@ -162,7 +162,6 @@ function generateTable(array,id){
 function drawStars(rating) {
     const ratingUl = document.querySelector("#rating");
     ratingUl.innerHTML = '';
-
     // Recorro hasta 5 porque si o si tengo que crear 5 estrellas
     for (let i = 1; i <= 5; i++) {
     let img = '';
@@ -184,6 +183,10 @@ function drawStars(rating) {
     star.addEventListener('click', onStarClick);
     });
 }
+
+// Funcion cupo maximo
+// total de reservas hechas pendientes de
+// cupo maximo de local
 
 /**
  * Este método crea las 5 estrellas y "pintando" la cantidad de estrellas basadas en el raiting recibido

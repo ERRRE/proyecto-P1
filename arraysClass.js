@@ -18,7 +18,7 @@ class User {
         this.userNombre = userNombre;
         this.password = password;
         this.type = type;
-        this.reservas = [];
+        this.reservas = reservas;
     }
 }
 

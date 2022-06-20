@@ -31,7 +31,10 @@ function onLoad() {
     buttonRegistrar.addEventListener("click", registrarse)
     // tomo boton con funcion para buscar informacion de locales para reservar
     document.querySelectorAll(".btnSearch").forEach(function (btn) {
-        btn.addEventListener("click", onSearch)
+        btn.addEventListener("click", onSearch);
+        
+    const buttonCerrar = document.querySelector("#cerrar");
+    buttonCerrar.addEventListener("click", onClickCerrar );
     })
 }
 // aca se guardara el local al cual reserven
@@ -230,66 +233,58 @@ function onClickReservas() {
     changeVisibility("entrada", "none");
 }
 
-// funcion para reservar
-//guardo en logerUser.reservas y en local.reservas la reserva 
-function reserva() {
-    let cant = document.querySelector("#cant").value
-    let res = new Reserva(logedUser.id, logedUser.userNombre, local.nombre, cant, "pendiente", null, local.Image)
-    arrLocal.forEach(function (value) {
-        if (value.nombre == local.nombre) {
-            if (value.cupos >= cant && cant > 0) {
-                logedUser.reservas.push(res);
-                value.reservas.push(res);
-                document.querySelector(".alertReservas").innerHTML = `Su reserva se a realizado con exito`
-            } else if (value.cupos < cant) {
-                document.querySelector(".alertReservas").innerHTML = `*Su reserva excede la cantidad de cupos restantes`;
-            } else {
-                document.querySelector(".alertReservas").innerHTML = `*Ingrese cupos deseados`;
+//funcion cerrar seccion
+// function onClickCerrar(e) {
+//     e.preventDefault()
+//     changeVisibility("inicio", "block");
+//     changeVisibility("contenedor", "none");
+//     changeVisibility("grafica1", "none");
+// }
+
+    // funcion para reservar
+    //guardo en logerUser.reservas y en local.reservas la reserva 
+    function reserva() {
+        let cant = document.querySelector("#cant").value
+        let res = new Reserva(logedUser.id, logedUser.userNombre, local.nombre, cant, "pendiente", null, local.Image)
+        arrLocal.forEach(function (value) {
+            if (value.nombre == local.nombre) {
+                if (value.cupos >= cant && cant > 0) {
+                    logedUser.reservas.push(res);
+                    value.reservas.push(res);
+                    document.querySelector(".alertReservas").innerHTML = `Su reserva se a realizado con exito`
+                } else if (value.cupos < cant) {
+                    document.querySelector(".alertReservas").innerHTML = `*Su reserva excede la cantidad de cupos restantes`;
+                } else {
+                    document.querySelector(".alertReservas").innerHTML = `*Ingrese cupos deseados`;
+                }
             }
-        }
-    })
-}
-
-// funcion para visualizar las reservas del usuario
-function onClickVisualize() {
-    document.querySelector("#datos").style.display = "none";
-    changeVisibility("visualRes", "block");
-    changeVisibility("saludos", "none");
-    changeVisibility("contenido", "block");
-    changeVisibility("tablaReservar", "none");
-    changeVisibility("entrada", "none");
-    arrUser.forEach(function (user) {
-        if (user.nombre == logedUser.nombre) {
-            generateTable(user, "visualRes");
-            drawStars(1);
-        }
-    })
-}
-
-
-function onStarClick() {
-    const rating = Number(this.getAttribute('data-index'));
-    drawStars(rating);
-    arrLocal.forEach(function(value) {
-
-    })
-}
-
-
-/*function drawStar(rating) {
-    const ratingUl = document.querySelector("#rating");
-    ratingUl.innerHTML = "";
-    for (let i = 1; i <= 5; i++) {
-        let img = "";
-        if (i < rating) {
-            img = `img/rating star.png`
-        } else {
-            img = `img/Plain_Yellow_Star.png`
-        }
-        /* ratingUl.innerHTML += `
-        <lil>
-            <img src="${img}" height`
+        })
     }
-} */
+
+    // funcion para visualizar las reservas del usuario
+    function onClickVisualize() {
+        document.querySelector("#datos").style.display = "none";
+        changeVisibility("visualRes", "block");
+        changeVisibility("saludos", "none");
+        changeVisibility("contenido", "block");
+        changeVisibility("tablaReservar", "none");
+        changeVisibility("entrada", "none");
+        arrUser.forEach(function (user) {
+            if (user.nombre == logedUser.nombre) {
+                generateTable(user, "visualRes");
+                drawStars(1);
+            }
+        })
+    }
 
 
+    function onStarClick() {
+        const rating = Number(this.getAttribute('data-index'));
+        drawStars(rating);
+        logedUser.reservas.forEach(function (reserva) {
+            if (reserva.status == "finalizada") {
+                reserva.calificacion = rating;
+                console.log(reserva.calificacion);
+            }
+        })
+    }
