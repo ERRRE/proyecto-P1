@@ -23,6 +23,7 @@
 // });
 
 function generarGraficoOcupacion(total, ocupacion) {
+
   let grafica2 =  new Morris.Donut({
     // ID of the element in which to draw the chart.
     element: 'myfirstchart2',
@@ -42,4 +43,18 @@ function generarGraficoOcupacion(total, ocupacion) {
    });
 }
 generarGraficoOcupacion(50, 20)
-// cupos total o maximo / de todas las reservas de este local el conteo acumulativo de lo cupos 
+// cupos total o maximo / de todas las reservas de este local el conteo acumulativo de lo cupos
+
+
+
+ // // total = Number(arrLocal.cupos)
+   // let sumaReservas = 0;
+   // arrLocal.forEach(function (total) {
+   //    if (total.cupos > 0) {
+   //       Local.cupos = total
+   //    }
+   // })
+   // arrLocal.forEach(function (reservas) {
+   //    sumaReservas += reservas;
+   //    ocupacion = sumaReservas;
+   // })

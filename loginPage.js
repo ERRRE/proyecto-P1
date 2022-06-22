@@ -32,10 +32,12 @@ function onLoad() {
     buttonRegistrar.addEventListener("click", registrarse)
     const buttonDatos = document.querySelector("#mostrarDatos");
     buttonDatos.addEventListener("click", visDatos)
+    //Boton para poder aceder a reservas 
     const buttonRes = document.querySelector("#misReservas");
     buttonRes.addEventListener("click", visMisRes)
     /*const buttonCerrar = document.querySelectorAll(".cerrar");
     buttonCerrar.addEventListener("click", onClickCerrar );*/
+    //Boton cerrar seccion
     document.querySelectorAll(".cerrar").forEach(function(btnClose){
         btnClose.addEventListener("click", onClickCerrar);
     })
@@ -199,6 +201,7 @@ function onClickLog(e) {
         changeVisibility("bloque", "none");
         changeVisibility("contenido", "none");
         changeVisibility("contenedorLocal", "none");
+        changeVisibility("grafica2", "none");
         arrUser.forEach(function (user) {
             if (usuario == user.userNombre) {
                 logedUser = user;
@@ -341,6 +344,7 @@ function visDatos() {
     changeVisibility("entradaLocal", "none");
     changeVisibility("visResLocal", "none");
     changeVisibility("tablaLocal", "block");
+    changeVisibility("grafica2", "block");
     mostrar("tablaDeDatos").innerHTML = `<tr>
     <td>
         <input type="text" id="address" placeholder="${local.address}"/>
