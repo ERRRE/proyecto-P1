@@ -317,3 +317,7 @@ input[type="button"] {
   text-decoration: none;
   color: #fff;
 }
+
+.col-md-6 {
+  margin: 0 auto
+}
