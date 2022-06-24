@@ -32,13 +32,16 @@ function onLoad() {
     buttonRegistrar.addEventListener("click", registrarse)
     const buttonDatos = document.querySelector("#mostrarDatos");
     buttonDatos.addEventListener("click", visDatos)
-    //Boton para poder aceder a reservas 
     const buttonRes = document.querySelector("#misReservas");
     buttonRes.addEventListener("click", visMisRes)
-    /*const buttonCerrar = document.querySelectorAll(".cerrar");
-    buttonCerrar.addEventListener("click", onClickCerrar );*/
-    //Boton cerrar seccion
-    document.querySelectorAll(".cerrar").forEach(function(btnClose){
+    const buttonDisable = document.querySelector("#disable");
+    buttonDisable.addEventListener("click", onDisable);
+    const buttonStadistics = document.querySelector("#stats");
+    buttonStadistics.addEventListener("click", onStats);
+    const buttonStadisticsLocal = document.querySelector("#statsLocal");
+    buttonStadisticsLocal.addEventListener("click", onStatsLocal);
+
+    document.querySelectorAll(".cerrar").forEach(function (btnClose) {
         btnClose.addEventListener("click", onClickCerrar);
     })
 
@@ -52,93 +55,7 @@ let local = {};
 // aca se guardara el usuario una vez ingrese
 let logedUser = {};
 
-// funcion para buscar locales para reservar
-function onSearch() {
-    changeVisibility("datos", "block")
-    const type = this.getAttribute("data-type")
-    switch (type) {
-        case "teatros":
-            const teatroSelected = document.querySelector("#selectTeatros").value
-            arrLocal.forEach(function (value) {
-                if (value.nombre == teatroSelected) {
-                    mostrar("datos").innerHTML = `
-                    <div class="showContenido">
-                        <h2>${teatroSelected}</h2>
-                        <img id="imagen" src="${value.Image}">
-                        <p>Donec dapibus arcu a diam commodo, vel vehicula orci volutpat. Vestibulum convallis tempor
-                            mattis.
-                            Donec molestie semper leo vel luctus. Curabitur quis nisi maximus, luctus lorem quis,
-                            dignissim
-                            augue.</p>
-                        <label>Cantidad de cupos<label/>
-                        <input type="number" id="cant"/>
-                        <br/>
-                        <p class="cuposMax">${value.cupos}</p>
-                        <input type="button" value="reservar" class="reservation">
-                        <p class="alertReservas"><p/>
-                    </div>
-                        <hr>`
-                    local = value;
-                }
-            })
-            break;
-        case "museos":
-            const museoSelected = document.querySelector("#selectMuseos").value
-            arrLocal.forEach(function (value) {
-                if (value.nombre == museoSelected) {
-                    mostrar("datos").innerHTML = `
-                    <div class="showContenido">
-                        <h2>${museoSelected}</h2>
-                        <img id="imagen" src="${value.Image}">
-                        <p>Donec dapibus arcu a diam commodo, vel vehicula orci volutpat. Vestibulum convallis tempor
-                            mattis.
-                            Donec molestie semper leo vel luctus. Curabitur quis nisi maximus, luctus lorem quis,
-                            dignissim
-                            augue.</p>
-                        <label>Cantidad de cupos<label/>
-                        <input type="number" id="cant"/>
-                        <br/>
-                        <p class="cuposMax">${value.cupos}</p>
-                        <input type="button" value="reservar" class="reservation">
-                        <p class="alertReservas"><p/>
-                    </div>
-                        <hr>`
-                    local = value;
-                }
-            })
 
-            break;
-        case "restaurantes":
-            const restauranteSelected = document.querySelector("#selectRestaurantes").value
-            arrLocal.forEach(function (value) {
-                if (value.nombre == restauranteSelected) {
-                    mostrar("datos").innerHTML = `
-                    <div class="showContenido">
-                        <h2>${restauranteSelected}</h2>
-                        <img id="imagen" src="${value.Image}">
-                        <p>Donec dapibus arcu a diam commodo, vel vehicula orci volutpat. Vestibulum convallis tempor
-                            mattis.
-                            Donec molestie semper leo vel luctus. Curabitur quis nisi maximus, luctus lorem quis,
-                            dignissim
-                            augue.</p>
-                        <label>Cantidad de cupos<label/>
-                        <input type="number" id="cant"/>
-                        <br/>
-                        <p class="cuposMax">${value.cupos}</p>
-                        <input type="button" value="reservar" class="reservation">
-                        <p class="alertReservas"><p/>
-                    </div>
-                        <hr>`
-                    local = value;
-                }
-            })
-            break;
-    }
-    // creo boton con funcion para confirmar la reserva
-    document.querySelectorAll(".reservation").forEach(function (btn) {
-        btn.addEventListener("click", reserva);
-    })
-}
 
 // funcion click correspondiente al select con caracteristica de boton
 function onClickSelect() {
@@ -160,8 +77,6 @@ function onClickSelect() {
 // funcion para ingresar con local
 function onClickLogLocal(e) {
     e.preventDefault();
-    let res1 = new Reserva(1, "Christian", "Mapi", 3, "pendiente", "./imagenes/DSC_4757.png")
-    let res2 = new Reserva(1, "Renan", "Mapi", 2, "pendiente", "./imagenes/DSC_4757.png")
     let usuario = document.querySelector("#nameLocal").value;
     let password = document.querySelector("#passLocal").value;
     if (validateLocal(usuario, password) == true) {
@@ -175,16 +90,16 @@ function onClickLogLocal(e) {
         changeVisibility("tablaLocal", "none");
         changeVisibility("visResLocal", "none");
         changeVisibility("contenedorLocal", "block");
+        changeVisibility("entradaLocal", "block");
+        changeVisibility("grafica2", "none");
+        changeVisibility("estadisticaLocal", "none");
         arrLocal.forEach(function (user) {
             if (user.nombre == usuario) {
                 local = user;
             }
         })
-        local.reservas.push(res1);
-        local.reservas.push(res2);
         console.log(local)
         document.querySelector("#greetings2Local").innerHTML = `Bienvenido`
-        //document.querySelector("#entradaLocal").innerHTML = `<style type="text/css">#contenedorLocal{background-image: url(${local.Image})}</style>`
     }
 }
 
@@ -201,6 +116,7 @@ function onClickLog(e) {
         changeVisibility("bloque", "none");
         changeVisibility("contenido", "none");
         changeVisibility("contenedorLocal", "none");
+        changeVisibility("contenedor", "block");
         changeVisibility("grafica2", "none");
         arrUser.forEach(function (user) {
             if (usuario == user.userNombre) {
@@ -236,13 +152,15 @@ function registrarse(e) {
     } else if (searchForUsername(newUserUname) == true) {
         document.querySelector("#alertaReg").innerHTML = `*Nombre de usuario no disponible`;
     } else {
-        const newUser = new User(newUserId, newUserName, newUserUname, newUserPassword, "persona");
+        const newUser = new User(newUserId, newUserName, newUserUname, newUserPassword, "persona", []);
+        logedUser = newUser;
         arrUser.push(newUser);
         changeVisibility("ingresoUsuario", "none");
         changeVisibility("inicio", "block");
         changeVisibility("greetings", "none");
         changeVisibility("bloque", "none");
         changeVisibility("contenido", "none");
+        changeVisibility("contenedorLocal", "none")
         document.querySelector("#greetings2").innerHTML = `Bienvenido ${newUserName}`
     }
 }
@@ -250,31 +168,120 @@ function registrarse(e) {
 // funcion para mostrar opciones de reservas
 function onClickReservas() {
     changeVisibility("visualRes", "none");
-    changeVisibility("tablaReservar", "block");
+    changeVisibility("tablaReservar", "table");
     changeVisibility("contenido", "block");
     changeVisibility("entrada", "none");
     changeVisibility("saludos", "block");
+    changeVisibility("estadistica", "none")
+    document.querySelector(".showContenido").innerHTML = ``;
+    document.querySelector("#selectTeatros").value = ``;
+    document.querySelector("#selectMuseos").value = ``;
+    document.querySelector("#selectRestaurantes").value = ``;
+}
+
+// funcion para buscar locales para reservar
+function onSearch() {
+    changeVisibility("datos", "block")
+    const type = this.getAttribute("data-type")
+    switch (type) {
+        case "teatros":
+            const teatroSelected = document.querySelector("#selectTeatros").value
+            arrLocal.forEach(function (value) {
+                if (value.nombre == teatroSelected) {
+                    mostrar("datos").innerHTML = `
+                    <div class="showContenido">
+                        <h2>${teatroSelected}</h2>
+                        <img id="imagen" src="${value.Image}">
+                        <p>El ${value.type} ${value.nombre} esta ubicado en ${value.address}</p>
+                        <label class="pedido">Cantidad de cupos<label/>
+                        <input type="number" id="cant"/>
+                        <br/>
+                        <p class="cuposMax">${value.cupos}</p>
+                        <input type="button" value="reservar" class="reservation">
+                        <p class="alertReservas"><p/>
+                    </div>
+                        <hr>`
+                    local = value;
+                }
+            })
+            break;
+        case "museos":
+            const museoSelected = document.querySelector("#selectMuseos").value
+            arrLocal.forEach(function (value) {
+                if (value.nombre == museoSelected) {
+                    mostrar("datos").innerHTML = `
+                    <div class="showContenido">
+                        <h2>${museoSelected}</h2>
+                        <img id="imagen" src="${value.Image}">
+                        <p>El ${value.type} ${value.nombre} esta ubicado en ${value.address}</p>
+                        <label class="pedido">Cantidad de cupos<label/>
+                        <input type="number" id="cant"/>
+                        <br/>
+                        <p class="cuposMax">${value.cupos}</p>
+                        <input type="button" value="reservar" class="reservation">
+                        <p class="alertReservas"><p/>
+                    </div>
+                        <hr>`
+                    local = value;
+                }
+            })
+
+            break;
+        case "restaurantes":
+            const restauranteSelected = document.querySelector("#selectRestaurantes").value
+            arrLocal.forEach(function (value) {
+                if (value.nombre == restauranteSelected) {
+                    mostrar("datos").innerHTML = `
+                    <div class="showContenido">
+                        <h2>${restauranteSelected}</h2>
+                        <img id="imagen" src="${value.Image}">
+                        <p>El ${value.type} ${value.nombre} esta ubicado en ${value.address}</p>
+                        <label class="pedido">Cantidad de cupos<label/>
+                        <input type="number" id="cant"/>
+                        <br/>
+                        <p class="cuposMax">${value.cupos}</p>
+                        <input type="button" value="reservar" class="reservation">
+                        <p class="alertReservas"><p/>
+                    </div>
+                        <hr>`
+                    local = value;
+                }
+            })
+            break;
+    }
+    // creo boton con funcion para confirmar la reserva
+    document.querySelectorAll(".reservation").forEach(function (btn) {
+        btn.addEventListener("click", reserva);
+    })
 }
 
 // funcion para reservar
 function reserva() {
     let encontrado = searchRes(logedUser);
     let cant = document.querySelector("#cant").value
-    let res = new Reserva(local.id, logedUser.userNombre, local.nombre, Number(cant), "pendiente", null, local.Image)
+    let res = new Reserva(local.id, logedUser.userNombre, local.nombre, Number(cant), "pendiente", 0, local.Image)
     if (encontrado == false) {
         arrLocal.forEach(function (value) {
-            if (value.nombre == local.nombre) {
-                if (value.cupos >= cant && cant > 0) {
-                    logedUser.reservas.push(res);
-                    value.reservas.push(res);
-                    value.cupos = value.cupos - Number(cant);
-                    local.cupos = value.cupos
-                    document.querySelector(".alertReservas").innerHTML = `Su reserva se a realizado con exito`
-                } else if (value.cupos < cant) {
-                    document.querySelector(".alertReservas").innerHTML = `*Su reserva excede la cantidad de cupos restantes`;
-                } else {
-                    document.querySelector(".alertReservas").innerHTML = `*Ingrese cupos deseados`;
+            if (value.status == "habilitado") {
+                if (value.nombre == local.nombre) {
+                    if (value.cupos >= cant && cant > 0) {
+                        logedUser.reservas.push(res);
+                        value.reservas.push(res);
+                        value.cupos = value.cupos - Number(cant);
+                        local.cupos = value.cupos
+                        document.querySelector(".alertReservas").innerHTML = `Su reserva se a realizado con exito`
+                        if (value.cupos == 0) {
+                            value.status = "deshabilitado";
+                        }
+                    } else if (value.cupos < cant) {
+                        document.querySelector(".alertReservas").innerHTML = `*Su reserva excede la cantidad de cupos restantes`;
+                    } else {
+                        document.querySelector(".alertReservas").innerHTML = `*Ingrese cupos deseados`;
+                    }
                 }
+            } else {
+                document.querySelector(".reservation").setAttribute("disabled", "disabled");
+                document.querySelector(".alertReservas").innerHTML = `*El local ha deshabilitado las reservas temporalmente`
             }
         })
         console.log(logedUser.reservas)
@@ -292,16 +299,26 @@ function onClickVisualize() {
     changeVisibility("contenido", "block");
     changeVisibility("tablaReservar", "none");
     changeVisibility("entrada", "none");
+    changeVisibility("estadistica", "none")
     generateTable(logedUser, "reservas");
 }
 
-function onStarClick() {
-    const rating = Number(this.getAttribute('data-index'));
-    drawStars(rating);
+function onStarClick(e) {
+    console.log("entro");
+    let idOfStar = e.target.parentNode.parentNode.id
+    const rating = Number(this.getAttribute("data-index"));
+    drawStars(rating, idOfStar);
     logedUser.reservas.forEach(function (reserva) {
         if (reserva.status == "finalizada") {
-            reserva.calificacion = rating;
-            console.log(reserva.calificacion);
+            arrLocal.forEach(function (value) {
+                value.reservas.forEach(function (reservaLocal) {
+                    if (reservaLocal.id == reserva.id && (reservaLocal.status == "finalizada" && reserva.status == "finalizada")) {
+                        reservaLocal.calificacion = rating;
+                        reserva.calificacion = rating;
+                        console.log(reservaLocal.calificacion);
+                    }
+                })
+            })
         }
     })
 }
@@ -316,7 +333,7 @@ function onCancel() {
         if (reserva.id != reservaId || reserva.status == "finalizada") {
             newReservasUsuario.push(reserva);
         } else {
-            cantCupos = reserva.cupos;
+            cantCupos += reserva.cupos;
             oldReserva = reserva;
         }
     })
@@ -328,7 +345,7 @@ function onCancel() {
             }
         })
     })
-    arrLocal.forEach(function(value){
+    arrLocal.forEach(function (value) {
         if (value.id == reservaId) {
             value.cupos = value.cupos + cantCupos;
             console.log(value);
@@ -345,6 +362,7 @@ function visDatos() {
     changeVisibility("visResLocal", "none");
     changeVisibility("tablaLocal", "block");
     changeVisibility("grafica2", "block");
+    changeVisibility("estadisticaLocal", "none");
     mostrar("tablaDeDatos").innerHTML = `<tr>
     <td>
         <input type="text" id="address" placeholder="${local.address}"/>
@@ -365,6 +383,28 @@ function visDatos() {
     document.querySelectorAll(".btnSave").forEach(function (btn) {
         btn.addEventListener("click", onSave)
     })
+    if (local.status == "deshabilitado") {
+        document.querySelector("#disable").value = "HABILITAR"
+    } else {
+        document.querySelector("#disable").value = "DESHABILITAR"
+    }
+    let cal = 0;
+    let encontradas = 0;
+    local.reservas.forEach(function(value){
+        if (value.status == "finalizada") {
+            cal += value.calificacion;
+            encontradas++
+        }
+    })
+    cal = cal / encontradas;
+    if (cal > 0) {
+        local.calificacion = cal;
+    }
+    console.log(local.calificacion);
+    document.querySelector("#calificacionLocal").innerHTML = `La calificacion de su local es de`
+    drawStars(local.calificacion, "ratingLocal");
+    mostrar("myfirstchart2").innerHTML = ``;
+    generarGraficoOcupacion(local)
 }
 
 function onSave() {
@@ -380,7 +420,7 @@ function onSave() {
                 encontradas++;
             }
         })
-    } 
+    }
     if (encontradas == local.reservas.length) {
         arrLocal.forEach(function (valores) {
             if (valores.id == local.id) {
@@ -395,10 +435,12 @@ function onSave() {
 }
 
 function visMisRes() {
-    changeVisibility("contenidoLocal", "block");
+    changeVisibility("contenidoLocal", "none");
     changeVisibility("entradaLocal", "none");
     changeVisibility("tablaLocal", "none");
     changeVisibility("visResLocal", "block");
+    changeVisibility("grafica2", "none");
+    changeVisibility("estadisticaLocal", "none");
     generateTableLocal(local.reservas, "reservasLocal");
 }
 
@@ -407,35 +449,42 @@ function onFinish() {
     local.reservas.forEach(function (reserva) {
         if (reserva.user == reservaId) {
             reserva.status = "finalizada"
-        } 
+        }
     })
     arrUser.forEach(function (user) {
         user.reservas.forEach(function (reserva) {
-            if (reserva.user == reservaId) {
+            if (reserva.user == reservaId && reserva.id == local.id) {
                 reserva.status = "finalizada";
             }
         })
     })
     mostrar("reservasLocal").innerHTML = ``;
-    generateTableLocal(local, "reservasLocal");
+    generateTableLocal(local.reservas, "reservasLocal");
 }
 
-function onSearchKeyup(){
+function onSearchKeyup() {
     const searchedUser = document.querySelector("#searchResLocal").value;
-    let esSub = null;
+    let esSub = false;
     const newRes = [];
-    local.reservas.forEach(function(reserva){
+    local.reservas.forEach(function (reserva) {
         let myUser = reserva.user.toLowerCase();
         if (searchedUser != "") {
             esSub = isSubString(myUser, searchedUser);
         } else {
-            generateTableLocal(local, "reservasLocal");
+            generateTableLocal(local.reservas, "reservasLocal");
         }
         if (esSub == true) {
             newRes.push(reserva)
         }
     })
-    generateTableLocal(newRes, "reservasLocal");
+    if (newRes.length == 0 && searchedUser != "") {
+        mostrar("alertSearch").innerHTML = `*No se encontraron reservas a ese nombre`
+    } else if (newRes.length == 0 && searchedUser == "") {
+        mostrar("alertSearch").innerHTML = ``;
+        generateTableLocal(local.reservas, "reservasLocal");
+    } else if (newRes.length > 0) {
+        generateTableLocal(newRes, "reservasLocal");
+    }
 }
 
 //funcion cerrar seccion
@@ -455,16 +504,82 @@ function onClickCerrar(e) {
     changeVisibility("register", "none");
 }
 
-
-
-/*for (let j = 0; j <= searchedUser.length - 1; j++){
-    if (myUser.charAt(i) == searchedUser.charAt(j)){
-        d += myUser.charAt(i);
-        if(myUser.charAt(i + 1) != searchedUser.charAt(j + 1) && j != myUser.length) {
-            d = "";
-            
+function onDisable() {
+    console.log("entro");
+    let encontradas = 0;
+    arrLocal.forEach(function (value) {
+        if (value.id == local.id) {
+            if (value.reservas.length > 0) {
+                value.reservas.forEach(function (reserva) {
+                    if (reserva.status == "finalizada") {
+                        encontradas++;
+                    }
+                })
+            }
+            if (value.status == "habilitado") {
+                if (encontradas == value.reservas.length) {
+                    value.status = "deshabilitado";
+                    local.status = value.status;
+                    document.querySelector("#disable").value = "HABILITAR"
+                    mostrar("alertDatosLocal").innerHTML = `Sus reservas han sido deshabilitadas con exito`
+                } else {
+                    mostrar("alertDatosLocal").innerHTML = `*Aun tiene reservas pendientes`
+                }
+            } else {
+                if (encontradas == value.reservas.length) {
+                    value.status = "habilitado";
+                    local.status = value.status;
+                    document.querySelector("#disable").value = "DESHABILITAR"
+                    mostrar("alertDatosLocal").innerHTML = `Sus reservas han sido habilitadas con exito`
+                } else {
+                    mostrar("alertDatosLocal").innerHTML = `*Aun tiene reservas pendientes`
+                }
+            }
         }
-    }
-}*/
+    })
+}
+
+function onStats() {
+    console.log("entre")
+    changeVisibility("datos", "none");
+    changeVisibility("visualRes", "none");
+    changeVisibility("saludos", "none");
+    changeVisibility("contenido", "block");
+    changeVisibility("tablaReservar", "none");
+    changeVisibility("entrada", "none");
+    changeVisibility("estadistica", "block ")
+    changeVisibility("tablaEstadistica", "block");
+    let maximo = Number.MIN_VALUE;
+    let cant = 0;
+    let newArr = logedUser.reservas;
+    let masReservas = null;
+    logedUser.reservas.forEach(function (reserva) {
+        cant = 0;
+        newArr.forEach(function (newRes) {
+            if (newRes.local == reserva.local && (newRes.status != "pendiente" || reserva.status != "pendiente")) {
+                cant++
+                if (maximo < cant) {
+                    maximo = cant;
+                    masReservas = newRes.local;
+                }
+            }
+        })
+    })
+    console.log(masReservas)
+    mostrar("miFavorito").innerHTML = `Tu local favorito es ${masReservas}`
+    generateTableEstadisticasUsuario(logedUser, "tablaEstadisticaUsuario")
+}
+
+function onStatsLocal() {
+    changeVisibility("contenidoLocal", "none");
+    changeVisibility("entradaLocal", "none");
+    changeVisibility("tablaLocal", "none");
+    changeVisibility("visResLocal", "none");
+    changeVisibility("grafica2", "none");
+    changeVisibility("estadisticaLocal", "block");
+    generateTableEstadisticas(arrLocal, "tablaEstadistica");
+}
+
+
 
 
