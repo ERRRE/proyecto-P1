@@ -15,6 +15,7 @@
 .clearfix {
   display: inline-block;
 }
+
 /* start commented backslash hack \*/
 
 * html .clearfix {
@@ -24,6 +25,7 @@
 .clearfix {
   display: block;
 }
+
 /* close commented backslash hack */
 
 body {
@@ -31,10 +33,18 @@ body {
   background-color: #FFAC00;
 }
 
-p{
+.pedido {
+  border-color: brown;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: larger;
+}
+
+p {
   border-color: brown;
   color: red;
   font-weight: bold;
+  font-size: larger;
 }
 
 #bloque {
@@ -45,7 +55,7 @@ p{
   background-color: white;
 }
 
-#searchResLocal{
+#searchResLocal {
   margin: 10px;
 }
 
@@ -59,84 +69,209 @@ h3,
 h5,
 h6 {
   font-family: 'Roboto Flex', sans-serif;
+  color: white;
+}
+
+#greetings {
+  color: black !important;
+}
+
+.pedido {
+  color: white;
+}
+
+.showContenido p {
+  color: white;
 }
 
 #greetings2Local {
   text-align: center;
   margin: 0 auto;
   color: white;
+  position: relative;
 }
 
 #greetings2 {
   text-align: center;
   margin: 0 auto;
   color: white;
+  position: relative;
 }
 
 #greetings3 {
   text-align: center;
   margin: 0 auto;
+  color: white;
 }
 
-h2{
-  width:60%;
-  float:left;
+h2 {
+  width: 60%;
+  float: left;
 }
 
-h4{
-  float:right;
-  font-weight:400;
-  width:30%;
-  margin-top:26px;
-  text-align:right;
+#tablaEstadistica{
+  display: table-row-group !important;
 }
 
-#contenedorLocal{
+#reservas ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+#estadisticaLocal table{
+  margin: 0 auto;
+}
+
+#miFavorito{
+  border-color: brown;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  margin-right: -120px;
+}
+
+#calificacionLocal {
+  border-color: brown;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  margin-right: -120px;
+}
+
+#contenidoLocal ul {
+  margin-right: -123px !important;
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+#contenidoLocal .star {
+  height: 30px;
+  width: 32px;
+}
+
+.col-md-6 {
+  text-align: center;
+  margin: 0 auto
+}
+
+h4 {
+  float: right;
+  font-weight: 400;
+  width: 30%;
+  margin-top: 26px;
+  text-align: right;
+}
+
+#contenedorLocal {
   width: 800px;
   background-color: #0096d6;
   margin: 0 auto;
-  background-image: url(/imagenes/homeimage.jpg);
+  background-image: url(/imagenes/home\ image.jpg);
   text-align: center;
+  position: relative;
+}
+
+#contenedorLocal::before {
+  content: "";
+  background-color: #00000056;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#contenedorLocal div {
+  position: relative;
+}
+
+#alertSearch {
+  color: rgb(250, 3, 3);
+  font-size: larger;
+  font-family: cursive;
 }
 
 #entrada {
-  background-image: url(/imagenes/homeimage.jpg);
-  width: 100%; height: 570px;
+  background-image: url(/imagenes/home\ image.jpg);
+  width: 100%;
+  height: 570px;
+  position: relative;
+}
+
+#entrada::before {
+  content: "";
+  background-color: #00000056;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #entradaLocal {
-  background-image: url(/imagenes/homeimage.jpg);
-  width: 100%; height: 570px;
+  background-image: url(/imagenes/home\ image.jpg);
+  width: 100%;
+  height: 570px;
+  position: relative;
 }
 
-#tablaReservar{
+#entradaLocal::before {
+  content: "";
+  background-color: #00000056;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#tablaLocal table {
+  margin-left: 12px;
+}
+
+#disable {
+  margin-top: 20px;
+  margin-right: -120;
+}
+
+#tablaReservar {
   margin: 0 auto !important;
 }
 
-#tablaLocal{
-  margin: 0 auto !important;
+#tablaLocal {
+  margin-left: -116px !important;
+  margin: 0 auto;
 }
 
-#imagen{
+#imagen {
   text-align: center;
 }
 
-table, th, td{
-  border-collapse:collapse;
+table,
+th,
+td {
+  border-collapse: collapse;
   border: #000 1px solid;
-  padding:5px;
-  background-color:#fff;
+  padding: 5px;
+  background-color: #fff;
 }
 
-table img, td>input[type=button]{
-  width:100px;
-  min-width:50px;
+table img,
+td>input[type=button] {
+  width: 100px;
+  min-width: 50px;
 }
 
-th{
-  background-color:#303036;
-  color:#fff;
-  font-weight:normal;
+th {
+  background-color: #303036;
+  color: #fff;
+  font-weight: normal;
 }
 
 #aux a {
@@ -144,11 +279,26 @@ th{
 }
 
 #contenedor {
-  background-image: url(/imagenes/homeimage.jpg);
+  background-image: url(/imagenes/home\ image.jpg);
   text-align: center;
   width: 800px;
   background-color: #0096d6;
   margin: 0 auto;
+  position: relative;
+}
+
+#contenedor div {
+  position: relative;
+}
+
+#contenedor::before {
+  content: "";
+  background-color: #00000056;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .star {
@@ -160,26 +310,26 @@ th{
   margin: 0 auto;
 }
 
-label{
+label {
   min-width: 80px;
-  text-align:left;
-  display:inline-block;
-  vertical-align:top;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
 }
 
-.duracion{
-  float:right;
+.duracion {
+  float: right;
 }
 
-textarea{
-  min-height:80px;
+textarea {
+  min-height: 80px;
 }
 
 p.ver-mas {
-    text-align: center;
-    cursor: pointer;
-    font-weight: 700;
-    color: #FC5130;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 700;
+  color: #FC5130;
 }
 
 #logo {
@@ -200,8 +350,6 @@ p.ver-mas {
   cursor: pointer;
   color: #fff;
   font-size: 14px;
-  appearance: none;
-  webkit-appearance: none;
 }
 
 #aux a {
@@ -235,27 +383,35 @@ p.ver-mas {
   background-color: #303036;
 }
 
-#contenidoLocal{
+#myfirstchart2 {
+  margin-left: -50px;
+}
+
+#myfirstchart2 text {
+  fill: white;
+}
+
+#contenidoLocal {
   /*background-color: #DFDFDF;*/
-  /*width: 590px;*/
-  padding: 20px;
+  width: 800px;
+  padding: 20px 0;
   float: left;
 }
 
-#contenidoLocal{
+#contenidoLocal {
   /*background-color: #DFDFDF;*/
-  /*width: 590px;*/
-  padding: 20px;
+  width: 800px;
+  padding: 20px 0;
   float: left;
 }
 
-#contenidoLocal img{
-  max-width:100%;
+#contenidoLocal img {
+  max-width: 100%;
   margin-bottom: 1%;
 }
 
-#contenido img{
-  max-width:100%;
+#contenido img {
+  max-width: 100%;
   margin-bottom: 1%;
 }
 
@@ -292,7 +448,8 @@ p.ver-mas {
 }
 
 input,
-select, textarea {
+select,
+textarea {
   background-color: #303036;
   color: #FFFAFF;
   border: 1px solid #ccc;
@@ -300,7 +457,7 @@ select, textarea {
   font-family: 'Roboto Flex', sans-serif;
   min-width: 200px;
   border-radius: 5px;
-  font-size:14px;
+  font-size: 14px;
 }
 
 input[type="button"] {
@@ -316,8 +473,4 @@ input[type="button"] {
 #pieLocal a {
   text-decoration: none;
   color: #fff;
-}
-
-.col-md-6 {
-  margin: 0 auto
 }

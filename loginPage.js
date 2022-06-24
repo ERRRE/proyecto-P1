@@ -160,8 +160,8 @@ function onClickSelect() {
 // funcion para ingresar con local
 function onClickLogLocal(e) {
     e.preventDefault();
-    let res1 = new Reserva(1, "Christian", "Mapi", 3, "pendiente", "./imagenes/Mapi.png")
-    let res2 = new Reserva(1, "Renan", "Mapi", 2, "pendiente", "./imagenes/Mapi.png")
+    let res1 = new Reserva(1, "Christian", "Mapi", 3, "pendiente", "./imagenes/DSC_4757.png")
+    let res2 = new Reserva(1, "Renan", "Mapi", 2, "pendiente", "./imagenes/DSC_4757.png")
     let usuario = document.querySelector("#nameLocal").value;
     let password = document.querySelector("#passLocal").value;
     if (validateLocal(usuario, password) == true) {
