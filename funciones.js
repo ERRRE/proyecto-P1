@@ -283,9 +283,9 @@ function drawStars(rating, selectorContainer) {
         // Si la posición de iteración es menor o igual al raiting, el src de la imagen a mostrar
         // es el de la imagen pintada, en caso contrario, es el de la imagen solo con borde
         if (i <= rating) {
-            img = './rar/rating/rating/img/star.webp';
+            img = './imagenes/Plain_Yellow_Star.png';
         } else {
-            img = './rar/rating/rating/img/star-empty.png';
+            img = './imagenes/rating star.png';
         }
         ratingUl.innerHTML += `
       <li class="liStar" data-index="${i}">

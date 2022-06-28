@@ -36,15 +36,16 @@ function onLoad() {
     buttonRes.addEventListener("click", visMisRes)
     const buttonDisable = document.querySelector("#disable");
     buttonDisable.addEventListener("click", onDisable);
+    // Estadisticas Usuario
     const buttonStadistics = document.querySelector("#stats");
     buttonStadistics.addEventListener("click", onStats);
+    // Estadistivas del Local
     const buttonStadisticsLocal = document.querySelector("#statsLocal");
     buttonStadisticsLocal.addEventListener("click", onStatsLocal);
-
+    // Cerrar seccion
     document.querySelectorAll(".cerrar").forEach(function (btnClose) {
         btnClose.addEventListener("click", onClickCerrar);
     })
-
     // creo boton con funcion para buscar informacion de locales para reservar
     document.querySelectorAll(".btnSearch").forEach(function (btn) {
         btn.addEventListener("click", onSearch)
@@ -461,7 +462,7 @@ function onFinish() {
     mostrar("reservasLocal").innerHTML = ``;
     generateTableLocal(local.reservas, "reservasLocal");
 }
-
+//Busca dentro de reservas el nombre 
 function onSearchKeyup() {
     const searchedUser = document.querySelector("#searchResLocal").value;
     let esSub = false;
@@ -538,7 +539,7 @@ function onDisable() {
         }
     })
 }
-
+// Estadisticas Usuario
 function onStats() {
     console.log("entre")
     changeVisibility("datos", "none");
@@ -569,7 +570,7 @@ function onStats() {
     mostrar("miFavorito").innerHTML = `Tu local favorito es ${masReservas}`
     generateTableEstadisticasUsuario(logedUser, "tablaEstadisticaUsuario")
 }
-
+// Estadistivas del Local
 function onStatsLocal() {
     changeVisibility("contenidoLocal", "none");
     changeVisibility("entradaLocal", "none");
